@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String?
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Book {
+  id             Int      @id @default(autoincrement())
+  title          String
+  author         String
+  published_year Int?
+  genre          String?
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+
+  inventories    Inventory[]
+
+  @@map("books")
+}
+
+model Branch {
+  id        Int       @id @default(autoincrement())
+  name      String       @unique
+  address   String?
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  inventories Inventory[]
+
+  @@map("branches")
+}
+
+model Inventory {
+  id        String    @id @default(cuid())
+  book      Book      @relation(fields: [bookId], references: [id])
+  bookId    Int
+  branch    Branch    @relation(fields: [branchId], references: [id])
+  branchId  Int
+  quantity  Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@unique([bookId, branchId]) // One inventory entry per book per branch
+  @@map("inventories")
+}
