@@ -7,7 +7,7 @@ export class CreateBookDto {
   @ApiProperty()
   author: string;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   published_year?: number;
 
   @ApiProperty({ required: false })
