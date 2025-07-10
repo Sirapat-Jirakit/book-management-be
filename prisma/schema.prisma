@@ -45,7 +45,7 @@ model Branch {
 }
 
 model Inventory {
-  id        String    @id @default(cuid())
+  id        Int    @id @default(autoincrement())
   book      Book      @relation(fields: [bookId], references: [id])
   bookId    Int
   branch    Branch    @relation(fields: [branchId], references: [id])

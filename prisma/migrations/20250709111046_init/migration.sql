@@ -36,7 +36,7 @@ CREATE TABLE "branches" (
 
 -- CreateTable
 CREATE TABLE "inventories" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "bookId" INTEGER NOT NULL,
     "branchId" INTEGER NOT NULL,
     "quantity" INTEGER NOT NULL,
