@@ -12,7 +12,12 @@ export class InventoriesService {
   }
 
   findAll() {
-    return this.prisma.inventory.findMany();
+    return this.prisma.inventory.findMany({
+      include: {
+        book: true,
+        branch: true,
+      },
+    });
   }
 
   findOne(id: number) {
